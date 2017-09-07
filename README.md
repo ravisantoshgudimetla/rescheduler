@@ -1,5 +1,5 @@
 # Rescheduler for Kubernetes
-
+![Build Status](https://travis-ci.org/ravisantoshgudimetla/rescheduler.svg?branch=master)](https://travis-ci.org/ravisantoshgudimetla/rescheduler)
 ## Introduction
 
 Scheduling in Kubernetes is the process of binding pending pods to nodes, and is performed by
