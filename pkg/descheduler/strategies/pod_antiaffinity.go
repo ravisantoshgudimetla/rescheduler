@@ -29,6 +29,7 @@ import (
 	"k8s.io/kubernetes/pkg/client/clientset_generated/clientset"
 	priorityutil "k8s.io/kubernetes/plugin/pkg/scheduler/algorithm/priorities/util"
 	"k8s.io/kubernetes/plugin/pkg/scheduler/schedulercache"
+	"fmt"
 )
 
 // RemovePodsViolatingInterPodAntiAffinity with elimination strategy
@@ -44,6 +45,7 @@ func removePodsWithAffinityRules(client clientset.Interface, policyGroupVersion 
 	podsEvicted := 0
 	for _, node := range nodes {
 		glog.V(1).Infof("Processing node: %#v\n", node.Name)
+		fmt.Printf("Processing node: %#v\n", node.Name)
 		pods, err := podutil.ListPodsOnANode(client, node)
 		if err != nil {
 			return 0
@@ -57,6 +59,7 @@ func removePodsWithAffinityRules(client clientset.Interface, policyGroupVersion 
 				} else {
 					podsEvicted++
 					glog.V(1).Infof("Evicted pod: %#v (%#v)\n because of existing anti-affinity", pods[i].Name, err)
+					fmt.Printf("Evicted pod: %#v because of existing anti-affinity\n", pods[i].Name)
 					// Since the current pod is evicted all other pods which have anti-affinity with this
 					// pod need not be evicted.
 					// Update pods.
